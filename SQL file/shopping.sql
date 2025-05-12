@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2025 at 06:20 PM
+-- Generation Time: May 12, 2025 at 05:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -84,17 +84,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `userId`, `productId`, `quantity`, `orderDate`, `paymentMethod`, `orderStatus`) VALUES
-(3, 4, '22', 1, '2025-05-07 17:12:09', 'COD', NULL),
-(4, 6, '25', 1, '2025-05-10 05:18:32', 'COD', 'Delivered'),
-(5, 6, '24', 1, '2025-05-10 13:54:55', 'Internet Banking', NULL),
-(6, 6, '34', 1, '2025-05-10 13:54:55', 'Internet Banking', 'Delivered'),
-(7, 1, '24', 1, '2025-05-10 14:34:39', 'COD', NULL),
-(8, 1, '24', 1, '2025-05-10 14:44:19', 'COD', NULL),
-(9, 1, '24', 1, '2025-05-10 17:11:55', 'COD', NULL),
-(10, 1, '29', 1, '2025-05-10 17:11:55', 'COD', NULL),
-(11, 1, '30', 1, '2025-05-11 08:41:16', 'COD', NULL),
-(12, 1, '37', 1, '2025-05-11 08:41:16', 'COD', NULL),
-(13, 6, '25', 1, '2025-05-11 10:14:18', 'COD', NULL);
+(16, 8, '27', 1, '2025-05-12 14:06:20', 'COD', 'Delivered');
 
 -- --------------------------------------------------------
 
@@ -115,8 +105,7 @@ CREATE TABLE `ordertrackhistory` (
 --
 
 INSERT INTO `ordertrackhistory` (`id`, `orderId`, `status`, `remark`, `postingDate`) VALUES
-(6, 4, 'Delivered', 'Thanks for Choosing us.', '2025-05-10 05:19:37'),
-(7, 6, 'Delivered', 'Thanks for choosing us.', '2025-05-11 14:07:21');
+(8, 16, 'Delivered', 'Thanks for choosing us.', '2025-05-12 15:26:16');
 
 -- --------------------------------------------------------
 
@@ -165,19 +154,14 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `category`, `subCategory`, `productName`, `productCompany`, `productPrice`, `productPriceBeforeDiscount`, `productDescription`, `productImage1`, `productImage2`, `productImage3`, `shippingCharge`, `productAvailability`, `postingDate`, `updationDate`) VALUES
-(26, 6, 28, 'Mens Short Casual Kurta Set', 'MFM', 750, 799, 'Stylish Kurta set for men.', ' EM (1).jpg', ' EM (2).jpg', ' EM (3).jpg', 50, 'In Stock', '2025-05-09 11:58:25', NULL),
-(27, 6, 24, 'Yellow Embroidered Kurta', 'MFM', 970, 999, 'Stylish men kurta.', ' EM2 (1).jpg', ' EM2 (2).jpg', ' EM2 (3).jpg', 100, 'In Stock', '2025-05-09 12:51:15', NULL),
-(29, 6, 29, 'White and Pink Printed Saree', 'MFM', 970, 999, 'A soft white saree with subtle pink prints and embroidery. Minimalist yet graceful, ideal for daytime functions or poojas.', ' TW (1).jpg', ' TW (2).jpg', ' TW (3).jpg', 50, 'In Stock', '2025-05-09 15:37:16', NULL),
-(30, 6, 29, 'Elegant Dress', 'MFM', 999, 1049, 'Elegant dress for women.', ' TW2 (1).jpg', ' TW2 (2).jpg', ' TW2 (3).jpg', 50, 'In Stock', '2025-05-09 15:42:02', NULL),
-(31, 6, 29, 'White Embroidered Kurti with Jeans', 'MFM', 450, 499, 'Casual white kurti with colorful floral embroidery around the neck, paired with denim jeans. Great for everyday wear or semi-casual outings.', ' TW3 (1).jpg', ' TW3 (2).jpg', ' TW3 (3).jpg', 50, 'In Stock', '2025-05-09 15:45:06', NULL),
-(32, 6, 29, 'Casual Puff-Sleeve Top', 'MFM', 550, 599, 'Stylish white puff-sleeve top with a round neck and cut-out detail, made from soft crinkled fabric—perfect for casual and chic everyday looks.', ' TW4 (1).jpg', ' TW4 (2).jpg', ' TW4 (3).jpg', 50, 'In Stock', '2025-05-10 05:02:15', NULL),
-(33, 6, 29, 'Dark Purple Maxi Dress', 'MFM', 389, 399, 'solid-colored maxi dress in dark purple, belted at the waist. Simple and elegant, suitable for semi-formal occasions or dinners.', ' TW5 (1).jpg', ' TW5 (2).jpg', ' TW5 (3).jpg', 50, 'In Stock', '2025-05-10 05:11:56', NULL),
-(34, 6, 29, 'Traditional Lehenga with Half Saree Style', 'MFM', 920, 999, 'vibrant South Indian half-saree/lehenga with a pink and orange border, floral pleated skirt, and traditional draping. Ideal for festive and wedding occasions.', ' TW6 (1).jpg', ' TW6 (2).jpg', ' TW6 (3).jpg', 100, 'In Stock', '2025-05-10 05:14:49', NULL),
-(35, 6, 29, 'White and Black Dress', 'MFM', 750, 799, 'Modern and chic, this white and black dress pairs a printed top with butterfly motifs and stylish tie-up sleeves with a sleek, high-waisted black skirt. The combination gives a flattering shape and a trendy contrast look—ideal for office wear, dinners, or semi-formal occasions.', ' tw7 (3).jpg', ' tw7 (2).jpg', ' tw7 (1).jpg', 50, 'Out of Stock', '2025-05-10 05:40:26', NULL),
-(36, 6, 29, 'White and Pink Floral Dress', 'MFM', 750, 799, 'A charming white dress with delicate pink floral patterns, this outfit combines elegance and comfort. The flowy silhouette, paired with flutter sleeves, creates a soft, feminine look. Accentuated with a statement belt at the waist, it’s perfect for daytime events, festive occasions, or a graceful casual outing', 'tw8 (1).jpg', 'tw8 (3).jpg', 'tw8 (2).jpg', 50, 'Out of Stock', '2025-05-10 05:45:03', NULL),
 (39, 6, 28, 'Peach Casual Shirt', 'MFM', 499, 599, 'A stylish men\\\'s peach-colored casual shirt with a slim fit, full sleeves, and a button-down design. It features a modern look with a slightly open collar, ideal for parties or semi-formal occasions. Paired with black trousers for a sleek contrast.', '_EM3__1_.jpg', '_EM3__2_.jpg', '_EM3__3_.jpg', 49, 'In Stock', '2025-05-11 07:48:09', NULL),
 (42, 6, 28, 'Latest Mens Fancy Wool Blend Full Sleeve Regular Fit High Neck Sweater.', 'MFM', 699, 799, 'A sleek black wool-blend high neck sweater with a snug fit, ideal for winter layering. Its ribbed texture and minimalist style make it suitable for both casual and semi-formal wear.', '_EM6__3_.jpg', '_EM6__1_.jpg', '_EM6__2_.jpg', 50, 'In Stock', '2025-05-11 10:56:25', NULL),
-(43, 6, 28, 'Peach Casual Shirt', 'MFM', 750, 799, 'A stylish men\\\'s peach-colored casual shirt with a slim fit, full sleeves, and a button-down design. It features a modern look with a slightly open collar, ideal for parties or semi-formal occasions. Paired with black trousers for a sleek contrast.', '_EM3__2_.jpg', '_EM3__1_.jpg', '_EM3__3_.jpg', 50, 'In Stock', '2025-05-11 10:57:33', NULL);
+(43, 6, 28, 'Peach Casual Shirt', 'MFM', 750, 799, 'A stylish men\\\'s peach-colored casual shirt with a slim fit, full sleeves, and a button-down design. It features a modern look with a slightly open collar, ideal for parties or semi-formal occasions. Paired with black trousers for a sleek contrast.', '_EM3__2_.jpg', '_EM3__1_.jpg', '_EM3__3_.jpg', 50, 'In Stock', '2025-05-11 10:57:33', NULL),
+(47, 6, 29, 'Women kurta', 'MFM', 400, 499, 'Stylish Women kurta for casual occasions.', 'bb.jpg', 'bbb.jpg', 'b.jpg', 50, 'In Stock', '2025-05-12 14:33:49', NULL),
+(48, 6, 29, 'Women Stylish Kurta', 'MFM', 500, 599, '<li data-start=\\\"367\\\" data-end=\\\"568\\\" class=\\\"\\\"><p data-start=\\\"370\\\" data-end=\\\"568\\\" class=\\\"\\\">Kurtas often come in vibrant colors and patterns, such as floral, geometric, and ethnic prints. They may also feature intricate embroidery, block printing, or sequins for added elegance.</p>\\r\\n</li>\\r\\n<li data-start=\\\"570\\\" data-end=\\\"782\\\" class=\\\"\\\">\\r\\n<p data-start=\\\"573\\\" data-end=\\\"782\\\" class=\\\"\\\"></p></li>', 'c.jpg', 'cc.jpg', 'ccc.jpg', 50, 'In Stock', '2025-05-12 14:41:46', NULL),
+(49, 6, 28, 'Men kurta', 'MFM', 750, 799, '<p data-start=\\\"119\\\" data-end=\\\"171\\\" class=\\\"\\\"><strong data-start=\\\"119\\\" data-end=\\\"171\\\">Mens Kurta – Elegant Comfort for Every Occasion</strong></p>\\r\\n<p data-start=\\\"173\\\" data-end=\\\"527\\\" class=\\\"\\\">Step into timeless tradition with our classic men’s kurta, crafted from premium fabric for all-day comfort and style. Featuring a banded neckline, straight-cut design, and full sleeves, this versatile kurta is perfect for festive events, casual outings, or daily wear. Pair it with pyjamas, jeans, or a churidar to complete your ethnic look effortlessly.</p>', 'ddd.jpg', 'd.jpg', 'dd.jpg', 100, 'In Stock', '2025-05-12 14:53:36', NULL),
+(50, 6, 28, 'Men purple shirt', 'MFM', 450, 499, '<p data-start=\\\"154\\\" data-end=\\\"641\\\" class=\\\"\\\">Step up your style game with this <strong data-start=\\\"188\\\" data-end=\\\"218\\\">Mens Classic Purple Shirt</strong>, designed for both formal flair and casual charm. Crafted from high-quality cotton-blend fabric, it offers all-day comfort and breathability. The rich purple hue adds a bold, modern twist to traditional menswear, making it perfect for office meetings, evening events, or smart weekend outings. Featuring a sharp spread collar, full button-down front, and tailored fit, this shirt pairs effortlessly with trousers or jeans.</p>', 'fff.jpg', 'ff.jpg', 'f.jpg', 50, 'Out of Stock', '2025-05-12 15:11:12', NULL),
+(51, 6, 28, 'Mens Casual Kurta Set', 'MFM', 750, 799, '<p data-start=\\\"112\\\" data-end=\\\"638\\\" class=\\\"\\\">Elevate your ethnic wardrobe with this <strong data-start=\\\"151\\\" data-end=\\\"177\\\">Mens Casual Kurta Set</strong>, a perfect blend of comfort and style. Crafted from soft, breathable cotton fabric, the set includes a straight-cut kurta paired with matching pajama pants for a relaxed yet refined look. The kurta features a classic mandarin collar, side slits, and wooden button detailing, making it ideal for festive gatherings, family functions, or casual day-outs. Its subtle design and easy fit ensure you look effortlessly stylish while staying comfortable all day long.</p>', 'eee.jpg', 'e.jpg', 'ee.jpg', 50, 'In Stock', '2025-05-12 15:18:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -239,7 +223,8 @@ INSERT INTO `userlog` (`id`, `userEmail`, `userip`, `loginTime`, `logout`, `stat
 (15, 'mfm@gmail.com', 0x3a3a3100000000000000000000000000, '2025-05-11 12:26:35', NULL, 0),
 (16, 'mfm@gmail.com', 0x3a3a3100000000000000000000000000, '2025-05-11 12:26:43', NULL, 0),
 (17, 'mfm@gmail.com', 0x3a3a3100000000000000000000000000, '2025-05-11 12:26:54', NULL, 0),
-(18, 'mfm@gmail.com', 0x3a3a3100000000000000000000000000, '2025-05-11 12:27:54', NULL, 0);
+(18, 'mfm@gmail.com', 0x3a3a3100000000000000000000000000, '2025-05-11 12:27:54', NULL, 0),
+(19, 'mahek@gmail.com', 0x3a3a3100000000000000000000000000, '2025-05-12 14:05:50', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -272,7 +257,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `contactno`, `password`, `shippingAddress`, `shippingState`, `shippingCity`, `shippingPincode`, `billingAddress`, `billingState`, `billingCity`, `billingPincode`, `regDate`, `updationDate`) VALUES
 (4, 'John Doe', 'johndeo@gmail.com', 4564566554, 'f925916e2754e5e03f75dd58a5733251', 'A 12323 XYZ Apartment ', 'Delhi', 'New Delhi', 110092, 'A 12323 XYZ Apartment ', 'Delhi', 'New Delhi', 110092, '2025-01-01 07:30:50', NULL),
 (6, 'mnaaz', 'mnaaz@gmail.com', 9980915255, 'df859cc3177c3aa66a0c73e3569a1ecc', 'Hubli', 'Karnataka', 'Hubli', 110092, 'jhjsc', 'Delhi', 'New Delhi', 110092, '2025-05-09 16:18:06', NULL),
-(7, 'MFM', 'mfm@gmail.com', 9980915255, '1ed71198052c6468210e630c28dec397', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-11 11:43:14', NULL);
+(7, 'MFM', 'mfm@gmail.com', 9980915255, '1ed71198052c6468210e630c28dec397', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-11 11:43:14', NULL),
+(8, 'Mahek', 'mahek@gmail.com', 9980915255, '3442ead1d316a5fb8269f982ea1545b9', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-12 14:05:28', NULL);
 
 -- --------------------------------------------------------
 
@@ -371,13 +357,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `ordertrackhistory`
 --
 ALTER TABLE `ordertrackhistory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `productreviews`
@@ -389,7 +375,7 @@ ALTER TABLE `productreviews`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `subcategory`
@@ -401,13 +387,13 @@ ALTER TABLE `subcategory`
 -- AUTO_INCREMENT for table `userlog`
 --
 ALTER TABLE `userlog`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `wishlist`
