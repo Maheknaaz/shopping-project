@@ -191,7 +191,7 @@ while ($rws=mysqli_fetch_array($ret)) {
 							<a href="category.php?page=product&action=add&id=<?php echo $row['id']; ?>">
 							<button class="btn btn-primary" type="button">Add to cart</button></a>
 								<?php } else {?>
-							<div class="action" style="color:red">Out of Stock</div>
+							<!-- <div class="action" style="color:red">Out of Stock</div> -->
 					<?php } ?>
 															
 								</div>
@@ -657,7 +657,7 @@ while($rw=mysqli_fetch_array($qry))
 			</div><!-- /.col -->
 			<div class="clearfix"></div>
 		</div>
-<?php include('includes/brands-slider.php');?>
+
 </div>
 </div>
 <?php include('includes/footer.php');?>

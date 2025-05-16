@@ -165,10 +165,10 @@ if(isset($_GET['action']) && $_GET['action']=="add"){
 							<i class="icon fa fa-truck"></i>
 						</div>
 						<div class="col-xs-10">
-							<h4 class="info-box-heading orange">free shipping</h4>
+							<h4 class="info-box-heading orange">Free shipping</h4>
 						</div>
 					</div>
-					<h6 class="text">free ship-on order over Rs. 600.00</h6>	
+					<h6 class="text">Free ship-on order over Rs. 600.00</h6>	
 				</div>
 			</div><!-- .col -->
 
@@ -198,11 +198,7 @@ if(isset($_GET['action']) && $_GET['action']=="add"){
 		<div  >
 			<div class="more-info-tab clearfix">
 			   <h3 class="new-product-title pull-left" style="margin: 20px;">All Products</h3>
-		<!-- 		<ul class="nav nav-tabs nav-tab-line pull-right" id="new-products-1">
-					<li class="active"><a href="#all" data-toggle="tab">All</a></li>
-					<li><a href="#books" data-toggle="tab">Books</a></li>
-					<li><a href="#furniture" data-toggle="tab">Furniture</a></li>
-				</ul> -->
+
 			</div>
 
 			<div class="tab-content outer-top-xs">
@@ -272,7 +268,6 @@ while ($row=mysqli_fetch_array($ret))
 		
 <hr />
 
-<?php include('includes/brands-slider.php');?>
 </div>
 </div>
 <?php include('includes/footer.php');?>
@@ -292,8 +287,6 @@ while ($row=mysqli_fetch_array($ret))
     <script src="assets/js/bootstrap-select.min.js"></script>
     <script src="assets/js/wow.min.js"></script>
 	<script src="assets/js/scripts.js"></script>
-
-	<!-- For demo purposes – can be removed on production -->
 	
 	<script src="switchstylesheet/switchstylesheet.js"></script>
 	
