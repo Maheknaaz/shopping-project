@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2025 at 10:59 AM
+-- Generation Time: May 22, 2025 at 10:55 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `shopping`
+-- Database: `shopping1`
 --
 
 -- --------------------------------------------------------
@@ -84,7 +84,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `userId`, `productId`, `quantity`, `orderDate`, `paymentMethod`, `orderStatus`) VALUES
-(26, 13, '58', 1, '2025-05-19 08:48:38', 'COD', 'Delivered');
+(26, 13, '58', 1, '2025-05-19 08:48:38', 'COD', 'Delivered'),
+(27, 14, '47', 1, '2025-05-22 08:47:10', 'COD', NULL);
 
 -- --------------------------------------------------------
 
@@ -172,7 +173,7 @@ INSERT INTO `products` (`id`, `category`, `subCategory`, `productName`, `product
 (55, 6, 29, 'Mint Green Kurti Set', 'MFM', 600, 799, '<div>A soothing mint green kurti set with subtle embroidery and scalloped edges, offering a soft and elegant appearance ideal for casual or semi-formal occasions.</div>', 'ii.jpg', 'iii.jpg', '', 50, 'In Stock', '2025-05-14 15:52:36', NULL),
 (56, 6, 28, 'Yellow Tie-Dye Kurta Set', 'MFM', 700, 799, '<div>A vibrant yellow and white tie-dye kurta with a mandarin collar, paired with white churidar pants—perfect for festive occasions or traditional events with a trendy touch.</div>', 'lll.jpg', 'll.jpg', 'l.jpg', 50, 'In Stock', '2025-05-14 15:57:08', NULL),
 (57, 6, 28, 'Green & White Striped Casual Shirt', 'MFM', 680, 699, '<div>A stylish green and white vertical striped shirt with a relaxed fit and button-down design, ideal for casual outings or summer days.</div>', 'm.jpg', 'mm.jpg', 'mmm.jpg', 50, 'In Stock', '2025-05-14 15:59:47', NULL),
-(58, 6, 28, 'Mustard Yellow Slim Fit Shirt', 'MFM', 800, 999, '<div>A trendy mustard yellow shirt with a sleek mandarin collar and rolled sleeves, perfect for casual or semi-formal wear with a modern edge.</div>', 'n.jpg', 'nn.jpg', 'nnn.jpg', 50, 'In Stock', '2025-05-14 16:01:43', NULL),
+(58, 6, 28, 'Mustard Yellow Slim Fit Shirt', 'MFM', 800, 999, '<div>A trendy mustard yellow shirt with a sleek mandarin collar and rolled sleeves, perfect for casual or semi-formal wear with a modern edge.</div>', 'n.jpg', 'nn.jpg', 'nnn.jpg', 50, 'In Stock', '2025-05-14 16:01:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -224,7 +225,9 @@ INSERT INTO `userlog` (`id`, `userEmail`, `userip`, `loginTime`, `logout`, `stat
 (30, 'admin@gmail.com', 0x3a3a3100000000000000000000000000, '2025-05-17 08:05:56', NULL, 1),
 (31, 'mis@gmail.com', 0x3a3a3100000000000000000000000000, '2025-05-18 16:18:03', NULL, 1),
 (32, 'mis@gmail.com', 0x3a3a3100000000000000000000000000, '2025-05-19 08:37:16', NULL, 1),
-(33, 'mis@gmail.com', 0x3a3a3100000000000000000000000000, '2025-05-19 08:48:15', NULL, 1);
+(33, 'mis@gmail.com', 0x3a3a3100000000000000000000000000, '2025-05-19 08:48:15', NULL, 1),
+(34, 'mnaaz3724@gmail.com', 0x3a3a3100000000000000000000000000, '2025-05-21 16:46:51', NULL, 1),
+(35, 'mnaaz3724@gmail.com', 0x3a3a3100000000000000000000000000, '2025-05-22 08:45:50', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -255,7 +258,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `contactno`, `password`, `shippingAddress`, `shippingState`, `shippingCity`, `shippingPincode`, `billingAddress`, `billingState`, `billingCity`, `billingPincode`, `regDate`, `updationDate`) VALUES
-(13, 'mis', 'mis@gmail.com', 2654861231, '7b32339e233ff3249095d2f01c1d00fb', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-19 08:48:12', NULL);
+(13, 'mis', 'mis@gmail.com', 2654861231, '7b32339e233ff3249095d2f01c1d00fb', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-19 08:48:12', NULL),
+(14, 'Mahek Naaz', 'mnaaz3724@gmail.com', 9980915555, 'f8ca569361a345a89b49e6202fe6a9a1', 'rwvra', 'wdcwww', 'ds', 522, NULL, NULL, NULL, NULL, '2025-05-21 16:46:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -361,7 +365,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `ordertrackhistory`
@@ -391,13 +395,13 @@ ALTER TABLE `subcategory`
 -- AUTO_INCREMENT for table `userlog`
 --
 ALTER TABLE `userlog`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `wishlist`
