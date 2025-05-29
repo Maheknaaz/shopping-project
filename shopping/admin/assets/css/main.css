@@ -400,7 +400,7 @@ a.bricky:hover {
 	float: left;
 }
 .navbar-tools .dropdown-menu {
-	background: none repeat scroll 0 0 white;
+	background: none repeat scroll 0 0 rgb(238, 136, 178);
 	border: 1px solid #C7CBD5;
 	border-radius: 0 0 4px 4px;
 	box-shadow: none;

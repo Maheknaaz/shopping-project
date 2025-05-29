@@ -3,7 +3,7 @@ body, .main-container, .footer, .main-navigation, ul.main-navigation-menu > li >
 }
 .layout-boxed header, .layout-boxed .main-container, .layout-boxed .footer {
 
-		border-left-color:#444444;
+		border-left-color:#c98484;
 		border-right-color:#444444;
 }
 .navbar-inverse {

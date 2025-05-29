@@ -1,19 +1,17 @@
 <div class="span3">
-					<div class="sidebar">
-
-
-<ul class="widget widget-menu unstyled">
-							<li>
-								<a class="collapsed" data-toggle="collapse" href="#togglePages">
-									<i class="menu-icon icon-cog"></i>
-									<i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right"></i>
-									Order Management
-								</a>
-								<ul id="togglePages" class="collapse unstyled">
-									<li>
-										<a href="todays-orders.php">
-											<i class="icon-tasks"></i>
-											Today's Orders
+	<div class="sidebar">
+       <ul class="widget widget-menu unstyled">
+			<li>
+				<a class="collapsed" data-toggle="collapse" href="#togglePages">
+					<i class="menu-icon icon-cog"></i>
+						<i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right"></i>
+							Order Management
+				</a>
+			<ul id="togglePages" class="collapse unstyled">
+				<li>
+					<a href="todays-orders.php">
+						<i class="icon-tasks"></i>
+							Today's Orders
   <?php
   $f1="00:00:00";
 $from=date('Y-m-d')." ".$f1;
@@ -31,7 +29,7 @@ $num_rows1 = mysqli_num_rows($result);
 										<a href="pending-orders.php">
 											<i class="icon-tasks"></i>
 											Pending Orders
-										<?php	
+<?php	
 	$status='Delivered';									 
 $ret = mysqli_query($con,"SELECT * FROM Orders where orderStatus!='$status' || orderStatus is null ");
 $num = mysqli_num_rows($ret);
