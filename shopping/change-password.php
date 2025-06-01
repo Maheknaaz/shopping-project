@@ -70,7 +70,18 @@ return true;
 }
 </script>
     </head>
-<style type="text/css"></style>
+<style>
+	body {
+  font-family: 'Segoe UI', sans-serif;
+  background: 
+    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+</style>
     <body>
 <?php include_once('includes/header.php');?>
         <!-- Header-->

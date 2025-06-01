@@ -20,6 +20,17 @@ if(strlen($_SESSION['id'])==0)
         <link href="css/styles.css" rel="stylesheet" />
         <script src="js/jquery.min.js"></script>
        <!--  <link href="css/bootstrap.min.css" rel="stylesheet" /> -->
+        <style> body {
+  font-family: 'Segoe UI', sans-serif;
+  background: 
+    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+        </style>
     </head>
 <style type="text/css"></style>
     <body>

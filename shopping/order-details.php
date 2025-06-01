@@ -28,7 +28,7 @@ include('includes/config.php');
 		<link rel="stylesheet" href="assets/css/rateit.css">
 		<link rel="stylesheet" href="assets/css/bootstrap-select.min.css">
 
-		<!-- Demo Purpose Only. Should be removed in production -->
+		
 		<link rel="stylesheet" href="assets/css/config.css">
 
 		<link href="assets/css/green.css" rel="alternate stylesheet" title="Green color">
@@ -51,7 +51,18 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 }
 
 </script>
-
+<style>
+	body {
+  font-family: 'Segoe UI', sans-serif;
+  background: 
+    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+</style>
 	</head>
     <body class="cnt-home">
 	
@@ -115,7 +126,7 @@ while($row=mysqli_fetch_array($query))
 				<tr>
 					<td><?php echo $cnt;?></td>
 					<td class="cart-image">
-						<a class="entry-thumbnail" href="detail.html">
+						<a class="entry-thumbnail" href="#">
 						    <img src="admin/productimages/<?php echo $row['pname'];?>/<?php echo $row['pimg1'];?>" alt="" width="84" height="146">
 						</a>
 					</td>
@@ -149,9 +160,7 @@ while($row=mysqli_fetch_array($query))
 		</div><!-- /.shopping-cart -->
 		</div> <!-- /.row -->
 		</form>
-		<!-- ============================================== BRANDS CAROUSEL ============================================== -->
-<?php echo include('includes/brands-slider.php');?>
-<!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
+		
 </div><!-- /.body-content -->
 <?php include('includes/footer.php');?>
 

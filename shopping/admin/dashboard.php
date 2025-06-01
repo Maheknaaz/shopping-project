@@ -4,7 +4,7 @@ if(strlen( $_SESSION["aid"])==0)
 {   
 header('location:logout.php');
 } else { 
-//Dashboard COunt
+//Dashboard Count
 $ret=mysqli_query($con,"select count(id) as totalorders,
 count(if((orderStatus='' || orderStatus is null),0,null)) as neworders,
 count(if(orderStatus='Packed', 0,null)) as packedorders,
@@ -41,7 +41,19 @@ $tregusers=$results1['totalusers'];
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-    </head>
+     <style>
+	body {
+  font-family: 'Segoe UI', sans-serif;
+  background: 
+    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+</style>
+</head>
     <body class="sb-nav-fixed">
    <?php include_once('includes/header.php');?>
 

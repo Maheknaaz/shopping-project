@@ -45,6 +45,141 @@ else{
 		<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 		<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
 		<link rel="shortcut icon" href="assets/images/favicon.ico">
+
+		<style>
+			/* ---------- General Body & Background ---------- */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: 
+    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb {
+  padding: 20px 0;
+  background: #ffeef0;
+  border-bottom: 1px solid #ffc6d0;
+}
+
+.breadcrumb a {
+  color: #d23669;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.breadcrumb .active {
+  color: #555;
+  font-weight: 600;
+}
+
+/* ---------- Container Enhancements ---------- */
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ---------- Shopping Cart Section ---------- */
+.shopping-cart-table {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(210, 54, 105, 0.1);
+  margin-bottom: 50px;
+}
+
+/* ---------- Table Style ---------- */
+.table-bordered {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ffe5ec;
+}
+
+.table-bordered th, 
+.table-bordered td {
+  padding: 12px 15px;
+  text-align: center;
+  border: 1px solid #ffe5ec;
+  vertical-align: middle;
+}
+
+.table-bordered th {
+  background-color: #fff0f5;
+  color: #d23669;
+  font-size: 16px;
+}
+
+.table-bordered td {
+  background-color: #fff;
+  font-size: 15px;
+}
+
+/* ---------- Product Image Styling ---------- */
+.cart-image img {
+  border-radius: 10px;
+  border: 2px solid #f9c2d4;
+  transition: transform 0.3s ease;
+}
+
+.cart-image img:hover {
+  transform: scale(1.05);
+}
+
+/* ---------- Product Name Link ---------- */
+.cart-product-description a {
+  color: #333;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.cart-product-description a:hover {
+  color: #d23669;
+}
+
+/* ---------- Track Button ---------- */
+.cart-total td a {
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.3s ease;
+}
+
+.cart-total td a:hover {
+  background: linear-gradient(to right, #ff6a88, #ff99ac);
+  box-shadow: 0 4px 10px rgba(210, 54, 105, 0.2);
+}
+
+/* ---------- Responsive Tweaks ---------- */
+@media (max-width: 768px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .cart-product-description a,
+  .cart-product-name-info {
+    text-align: left;
+    display: block;
+  }
+
+  .cart-image img {
+    height: auto;
+    width: 70px;
+  }
+}
+
+		</style>
 	<script language="javascript" type="text/javascript">
 var popUpWin=0;
 function popUpWindow(URLStr, left, top, width, height)
