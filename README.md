@@ -66,9 +66,9 @@ Password: Mfm@123
 
 👑 Admin Login:
 Username: admin
-Password: Test@123
+Password: Ultimez@2025
 
 ❗ Notes:
 Make sure Apache and MySQL are running.
 
-                                                             ---------------Thank You!-----------------
+                  
