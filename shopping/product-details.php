@@ -5,7 +5,15 @@ include('includes/config.php');
 
 if(isset($_GET['action']) && $_GET['action']=="add"){
     $id=intval($_GET['id']);
-    $quantity = isset($_GET['qty']) ? intval($_GET['qty']) : 1; // Get quantity from URL
+    $quantity = isset($_GET['qty']) ? intval($_GET['qty']) : 1;
+    $size = isset($_GET['size']) ? $_GET['size'] : ''; // Get size from URL
+    
+    // Validate size selection
+    if(empty($size)) {
+        echo "<script>alert('Please select a size before adding to cart.')</script>";
+        echo "<script type='text/javascript'> document.location ='product-details.php?pid={$id}'; </script>";
+        exit;
+    }
     
     // Get current stock quantity
     $stock_query = mysqli_query($con, "SELECT stock_quantity FROM products WHERE id={$id}");
@@ -21,25 +29,34 @@ if(isset($_GET['action']) && $_GET['action']=="add"){
         $update_stock = mysqli_query($con, "UPDATE products SET stock_quantity = stock_quantity - {$quantity} WHERE id={$id}");
         
         if($update_stock) {
-            if(isset($_SESSION['cart'][$id])){
-                $_SESSION['cart'][$id]['quantity'] += $quantity;
+            // Create unique cart key with product id and size
+            $cart_key = $id . '_' . $size;
+            
+            if(isset($_SESSION['cart'][$cart_key])){
+                $_SESSION['cart'][$cart_key]['quantity'] += $quantity;
             } else {
                 $sql_p="SELECT * FROM products WHERE id={$id}";
                 $query_p=mysqli_query($con,$sql_p);
                 if(mysqli_num_rows($query_p)!=0){
                     $row_p=mysqli_fetch_array($query_p);
-                    $_SESSION['cart'][$row_p['id']]=array("quantity" => $quantity, "price" => $row_p['productPrice']);
+                    $_SESSION['cart'][$cart_key]=array(
+                        "product_id" => $row_p['id'],
+                        "quantity" => $quantity, 
+                        "price" => $row_p['productPrice'],
+                        "size" => $size,
+                        "name" => $row_p['productName']
+                    );
                 }
             }
             
             // Check remaining stock after purchase
             $remaining_stock = $current_stock - $quantity;
             if($remaining_stock <= 0) {
-                echo "<script>alert('Product added to cart! This item is now out of stock.')</script>";
+                echo "<script>alert('Product (Size: {$size}) added to cart! This item is now out of stock.')</script>";
             } else if($remaining_stock <= 3) {
-                echo "<script>alert('Product added to cart! Only {$remaining_stock} items left in stock.')</script>";
+                echo "<script>alert('Product (Size: {$size}) added to cart! Only {$remaining_stock} items left in stock.')</script>";
             } else {
-                echo "<script>alert('{$quantity} item(s) have been added to the cart')</script>";
+                echo "<script>alert('{$quantity} item(s) of size {$size} have been added to the cart')</script>";
             }
             
             echo "<script type='text/javascript'> document.location ='my-cart.php'; </script>";
@@ -51,17 +68,18 @@ if(isset($_GET['action']) && $_GET['action']=="add"){
 
 // Handle cart removal (to restore stock when items are removed from cart)
 if(isset($_GET['action']) && $_GET['action']=="remove"){
-    $id=intval($_GET['id']);
+    $cart_key = $_GET['cart_key']; // Use cart_key instead of just id
     
-    if(isset($_SESSION['cart'][$id])){
+    if(isset($_SESSION['cart'][$cart_key])){
         // Restore stock quantity
-        $restore_qty = $_SESSION['cart'][$id]['quantity'];
-        mysqli_query($con, "UPDATE products SET stock_quantity = stock_quantity + {$restore_qty} WHERE id={$id}");
+        $product_id = $_SESSION['cart'][$cart_key]['product_id'];
+        $restore_qty = $_SESSION['cart'][$cart_key]['quantity'];
+        mysqli_query($con, "UPDATE products SET stock_quantity = stock_quantity + {$restore_qty} WHERE id={$product_id}");
         
         // Remove from cart
-        unset($_SESSION['cart'][$id]);
+        unset($_SESSION['cart'][$cart_key]);
         echo "<script>alert('Product removed from cart and stock restored.')</script>";
-        echo "<script type='text/javascript'> document.location ='product-details.php?pid={$id}'; </script>";
+        echo "<script type='text/javascript'> document.location ='product-details.php?pid={$product_id}'; </script>";
     }
 }
 
@@ -124,18 +142,76 @@ if(isset($_POST['submit']))
         <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
         <link rel="shortcut icon" href="assets/images/favicon.ico">
         <style>
-			body {
-  font-family: 'Segoe UI', sans-serif;
-  background: 
-    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
-    url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
-  background-size: cover;
-  color: #222;
-  margin: 0;
-  padding: 0;
-}
+            body {
+                font-family: 'Segoe UI', sans-serif;
+                background: 
+                    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+                    url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+                background-size: cover;
+                color: #222;
+                margin: 0;
+                padding: 0;
+            }
 
-		</style>
+            /* Size Selection Styles */
+            .size-selector {
+                margin: 15px 0;
+            }
+            
+            .size-options {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 10px;
+            }
+            
+            .size-option {
+                position: relative;
+            }
+            
+            .size-option input[type="radio"] {
+                display: none;
+            }
+            
+            .size-option label {
+                display: inline-block;
+                padding: 8px 15px;
+                border: 2px solid #ddd;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-weight: bold;
+                min-width: 45px;
+                text-align: center;
+                background-color: #fff;
+            }
+            
+            .size-option label:hover {
+                border-color: #007bff;
+                background-color: #f8f9fa;
+            }
+            
+            .size-option input[type="radio"]:checked + label {
+                background-color: #007bff;
+                color: white;
+                border-color: #007bff;
+            }
+            
+            .size-guide {
+                font-size: 12px;
+                color: #666;
+                margin-top: 5px;
+            }
+            
+            .size-guide a {
+                color: #007bff;
+                text-decoration: none;
+            }
+            
+            .size-guide a:hover {
+                text-decoration: underline;
+            }
+        </style>
     </head>
     <body class="cnt-home">
 
@@ -230,8 +306,8 @@ while ($rw=mysqli_fetch_array($ret)) {
                                                         <button class="btn btn-primary icon" data-toggle="dropdown" type="button">
                                                             <i class="fa fa-shopping-cart"></i>                                                    
                                                         </button>
-                                                        <a href="product-details.php?page=product&action=add&id=<?php echo $rws['id']; ?>">
-                                                            <button class="btn btn-primary" type="button">Add to cart</button>
+                                                        <a href="product-details.php?pid=<?php echo $rws['id']; ?>">
+                                                            <button class="btn btn-primary" type="button">View Details</button>
                                                         </a>
                                                     <?php } else {?>
                                                         <div class="action" style="color:red">Out of Stock</div>
@@ -412,6 +488,54 @@ while($row=mysqli_fetch_array($ret))
                                 </div><!-- /.row -->
                             </div><!-- /.price-container -->
 
+                            <!-- SIZE SELECTION SECTION -->
+                            <?php if(!$is_out_of_stock): ?>
+                                <div class="size-selector info-container m-t-20">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="size-box">
+                                                <span class="label" style="font-weight: bold; font-size: 16px; color: #000;">Select Size:</span>
+                                                <div class="size-options">
+                                                    <div class="size-option">
+                                                        <input type="radio" id="size_xs" name="product_size" value="XS">
+                                                        <label for="size_xs">XS</label>
+                                                    </div>
+                                                    <div class="size-option">
+                                                        <input type="radio" id="size_s" name="product_size" value="S">
+                                                        <label for="size_s">S</label>
+                                                    </div>
+                                                    <div class="size-option">
+                                                        <input type="radio" id="size_m" name="product_size" value="M">
+                                                        <label for="size_m">M</label>
+                                                    </div>
+                                                    <div class="size-option">
+                                                        <input type="radio" id="size_l" name="product_size" value="L">
+                                                        <label for="size_l">L</label>
+                                                    </div>
+                                                    <div class="size-option">
+                                                        <input type="radio" id="size_xl" name="product_size" value="XL">
+                                                        <label for="size_xl">XL</label>
+                                                    </div>
+                                                    <div class="size-option">
+                                                        <input type="radio" id="size_xxl" name="product_size" value="XXL">
+                                                        <label for="size_xxl">XXL</label>
+                                                    </div>
+                                                    <div class="size-option">
+                                                        <input type="radio" id="size_xxxl" name="product_size" value="XXXL">
+                                                        <label for="size_xxxl">XXXL</label>
+                                                    </div>
+                                                </div>
+                                                <div class="size-guide">
+                                                    <a href="#" onclick="showSizeGuide()">
+                                                        <i class="fa fa-question-circle"></i> Size Guide
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+
                             <!-- UPDATED QUANTITY AND ADD TO CART SECTION WITH + - BUTTONS -->
                             <div class="quantity-container info-container">
                                 <div class="row">
@@ -454,16 +578,21 @@ while($row=mysqli_fetch_array($ret))
                                             </a>
                                             
                                             <!-- Show items in cart if any -->
-                                            <?php if(isset($_SESSION['cart'][$row['id']])): ?>
+                                            <?php 
+                                            $cart_items_for_product = 0;
+                                            if(isset($_SESSION['cart'])) {
+                                                foreach($_SESSION['cart'] as $cart_key => $cart_item) {
+                                                    if(isset($cart_item['product_id']) && $cart_item['product_id'] == $row['id']) {
+                                                        $cart_items_for_product += $cart_item['quantity'];
+                                                    }
+                                                }
+                                            }
+                                            if($cart_items_for_product > 0): ?>
                                                 <div style="margin-top: 10px;">
                                                     <small class="text-info">
                                                         <i class="fa fa-shopping-cart"></i>
-                                                        <?php echo $_SESSION['cart'][$row['id']]['quantity']; ?> in your cart
-                                                        <a href="product-details.php?action=remove&id=<?php echo $row['id']; ?>" 
-                                                           class="btn btn-xs btn-warning" 
-                                                           onclick="return confirm('Remove from cart and restore stock?')">
-                                                            Remove
-                                                        </a>
+                                                        <?php echo $cart_items_for_product; ?> items in your cart
+                                                        <a href="my-cart.php" class="btn btn-xs btn-info">View Cart</a>
                                                     </small>
                                                 </div>
                                             <?php endif; ?>
@@ -654,7 +783,7 @@ $subcid=$row['subCategory'];
                                                             <button class="btn btn-primary icon" data-toggle="dropdown" type="button">
                                                                 <i class="fa fa-shopping-cart"></i>                                                    
                                                             </button>
-                                                            <a href="product-details.php?page=product&action=add&id=<?php echo $rw['id']; ?>" class="lnk btn btn-primary">Add to cart</a>
+                                                            <a href="product-details.php?pid=<?php echo $rw['id']; ?>" class="lnk btn btn-primary">View Details</a>
                                                         <?php else: ?>
                                                             <span class="btn btn-default" style="color: red;">Out of Stock</span>
                                                         <?php endif; ?>
@@ -671,6 +800,84 @@ $subcid=$row['subCategory'];
                 <!-- ============================================== RELATED PRODUCTS : END ============================================== -->
             </div><!-- /.col -->
             <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Size Guide Modal -->
+<div class="modal fade" id="sizeGuideModal" tabindex="-1" role="dialog" aria-labelledby="sizeGuideModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="sizeGuideModalLabel">Size Guide</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Size</th>
+                                <th>Chest (inches)</th>
+                                <th>Waist (inches)</th>
+                                <th>Length (inches)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>XS</strong></td>
+                                <td>32-34</td>
+                                <td>26-28</td>
+                                <td>26</td>
+                            </tr>
+                            <tr>
+                                <td><strong>S</strong></td>
+                                <td>34-36</td>
+                                <td>28-30</td>
+                                <td>27</td>
+                            </tr>
+                            <tr>
+                                <td><strong>M</strong></td>
+                                <td>36-38</td>
+                                <td>30-32</td>
+                                <td>28</td>
+                            </tr>
+                            <tr>
+                                <td><strong>L</strong></td>
+                                <td>38-40</td>
+                                <td>32-34</td>
+                                <td>29</td>
+                            </tr>
+                            <tr>
+                                <td><strong>XL</strong></td>
+                                <td>40-42</td>
+                                <td>34-36</td>
+                                <td>30</td>
+                            </tr>
+                            <tr>
+                                <td><strong>XXL</strong></td>
+                                <td>42-44</td>
+                                <td>36-38</td>
+                                <td>31</td>
+                            </tr>
+                            <tr>
+                                <td><strong>XXXL</strong></td>
+                                <td>44-46</td>
+                                <td>38-40</td>
+                                <td>32</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="alert alert-info">
+                    <strong>Note:</strong> All measurements are approximate. For best fit, please refer to the size chart before ordering.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
@@ -725,10 +932,28 @@ $subcid=$row['subCategory'];
             }
         }
 
-        // Add to cart function with quantity
+        // Get selected size
+        function getSelectedSize() {
+            var sizeRadios = document.getElementsByName('product_size');
+            for (var i = 0; i < sizeRadios.length; i++) {
+                if (sizeRadios[i].checked) {
+                    return sizeRadios[i].value;
+                }
+            }
+            return null;
+        }
+
+        // Add to cart function with quantity and size
         function addToCart(productId, maxStock) {
             var quantity = document.getElementById('quantity').value;
             var qty = parseInt(quantity);
+            var selectedSize = getSelectedSize();
+            
+            // Validate size selection
+            if (!selectedSize) {
+                alert('Please select a size before adding to cart.');
+                return false;
+            }
             
             if(qty > maxStock) {
                 alert('Only ' + maxStock + ' items available in stock');
@@ -740,8 +965,8 @@ $subcid=$row['subCategory'];
                 return false;
             }
             
-            if(confirm('Add ' + qty + ' item(s) to your cart? Stock will be reserved immediately.')) {
-                window.location.href = 'product-details.php?page=product&action=add&id=' + productId + '&qty=' + qty;
+            if(confirm('Add ' + qty + ' item(s) of size ' + selectedSize + ' to your cart? Stock will be reserved immediately.')) {
+                window.location.href = 'product-details.php?page=product&action=add&id=' + productId + '&qty=' + qty + '&size=' + selectedSize;
             }
             return false;
         }
@@ -757,6 +982,17 @@ $subcid=$row['subCategory'];
             } else if(qty < 1 || isNaN(qty)) {
                 this.value = 1;
             }
+        });
+
+        // Show size guide modal
+        function showSizeGuide() {
+            $('#sizeGuideModal').modal('show');
+        }
+
+        // Highlight size selection
+        $('input[name="product_size"]').change(function() {
+            $('.size-option label').removeClass('selected');
+            $(this).next('label').addClass('selected');
         });
     </script>
 </body>
